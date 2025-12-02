@@ -15,7 +15,7 @@ const oauth2Client: OAuth2ClientConfig = {
   clientSecret: Deno.env.get("oauth2_clientSecret")!,
   authorizeUri: "https://dev-rv2b6ksuxugirdcl.eu.auth0.com/authorize",
   tokenUri: "https://dev-rv2b6ksuxugirdcl.eu.auth0.com/oauth/token",
-  redirectUri: "http://127.0.0.1:5173/auth/callback",
+  redirectUri:  Deno.env.get("DENO_DEPLOYMENT_ID") ? "https://iccee0-bier-counter-20.deno.dev/auth/callback" : "http://127.0.0.1:5173/auth/callback",
   scope: "openid profile email",
 };
 
@@ -95,8 +95,12 @@ console.log("Authenticating request for " + ctx.req.url);
     if (!userInfo.ok) {
       console.log("User info request failed");
       console.log(userInfo.statusText);
-      return Response.redirect("/auth/logout");
-    }
+      const { origin } = new URL(ctx.req.url);
+      return new Response(undefined, {
+        status: 302,
+        headers: { "location": origin+"/auth/login" },
+      });
+}
 
     const userData = await userInfo.json();
 
