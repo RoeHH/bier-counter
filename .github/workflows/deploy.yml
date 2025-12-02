@@ -32,5 +32,3 @@ jobs:
           project: "iccee0-bier-counter-20"
           entrypoint: "./_fresh/server.js"
           root: ""
-          
-          

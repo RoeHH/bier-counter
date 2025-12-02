@@ -16,7 +16,10 @@ export default define.page(function Home(ctx) {
       <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
         <Counter count={count} />
 
-        <p class="text-lg">Du hesch vor em lade vo de Site scho {ctx.state.user?.beersChugged ?? 0} Bier gsoffe.</p>
+        <p class="text-lg">
+          Du hesch vor em lade vo de Site scho{" "}
+          {ctx.state.user?.beersChugged ?? 0} Bier gsöfflet.
+        </p>
       </div>
     </div>
   );

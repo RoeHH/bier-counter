@@ -1,12 +1,10 @@
 import { ServerSentEventStream } from "jsr:@std/http";
 import { define } from "@/utils.ts";
 
-
 const db = await Deno.openKv();
 
 export const handler = define.handlers({
   async GET(_ctx) {
-
     return new Response(
       new ReadableStream({
         async start(controller) {

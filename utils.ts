@@ -9,7 +9,7 @@ export interface User {
   nickname: string;
   picture: string;
   email: string;
-  beersChugged?: number; 
+  beersChugged?: number;
 }
 
 export interface State {
