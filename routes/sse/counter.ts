@@ -1,20 +1,16 @@
 import { ServerSentEventStream } from "jsr:@std/http";
-import { define } from "@/utils.ts";
-
-const db = await Deno.openKv();
+import { db, define } from "@/utils.ts";
 
 export const handler = define.handlers({
-  async GET(_ctx) {
+  GET(_ctx) {
     return new Response(
       new ReadableStream({
         async start(controller) {
           for await (
-            const [{ value: message }] of db.watch([["counter"]])
+            const [{ value }] of db.watch([["counter"]])
           ) {
-            console.log("message", message);
-
             controller.enqueue({
-              data: JSON.stringify({ counter: message }),
+              data: JSON.stringify({ counter: value }),
               id: Date.now(),
               event: "message",
             });
